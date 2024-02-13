@@ -4,6 +4,7 @@ import {authenticate, IUser} from '@/app/lib/actions';
 import {useFormStatus} from 'react-dom';
 import {useRouter} from "next/navigation";
 import Image from "next/image"
+import {useState} from "react";
 
 export default function Page() {
     return (
@@ -26,6 +27,11 @@ export default function Page() {
 function LoginForm() {
     const {pending} = useFormStatus();
     const router = useRouter();
+    const [passwordVisible, setPasswordVisible] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
+    };
 
     async function handleSubmit(formData: FormData) {
 
@@ -44,17 +50,30 @@ function LoginForm() {
             <input
                 type="email"
                 name="email"
-                placeholder="Email"
+                placeholder="Enter Email"
                 required
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-4 py-2 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-blue-100 bg-opacity-50"
             />
-            <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                required
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            />
+            <div className="relative">
+                <input
+                    type={passwordVisible ? 'text' : 'password'}
+                    name="password"
+                    placeholder="Password"
+                    required
+                    className="appearance-none rounded-none relative block w-full px-4 py-2 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-blue-100 bg-opacity-50"
+                />
+                <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                >
+                    {passwordVisible ? (
+                        <Image src='/eye.svg' alt='passwordNoVisible' width='19' height='16'></Image>
+                    ) : (
+                        <Image src='/eyecrossed.svg' alt='passwordVisible' width='19' height='16'></Image>
+                    )}
+                </button>
+            </div>
             <button
                 type="submit"
                 className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
@@ -62,7 +81,7 @@ function LoginForm() {
                 }`}
                 aria-disabled={pending}
             >
-                {pending ? 'Logging in...' : 'Login'}
+                {pending ? 'Logging in...' : 'Sign in'}
             </button>
         </form>
     );

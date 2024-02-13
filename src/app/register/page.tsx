@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from "next/image";
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -15,12 +16,11 @@ export default function RegisterPage() {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md w-full space-y-8">
-                <div>
-                    <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            <div className="max-w-5xl w-full flex items-center justify-center">
+                <div className="mr-10 flex-grow">
+                    <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900">
                         Inscription
                     </h2>
-                </div>
                 <form className="mt-8 space-y-6" action={handleSubmit}>
                     <input
                         type="email"
@@ -47,6 +47,10 @@ export default function RegisterPage() {
                         S'inscrire
                     </button>
                 </form>
+                </div>
+                <div>
+                    <Image src='/auth.svg' priority={true} alt='auth' width='564' height='496' className="w-94 h-auto"/>
+                </div>
             </div>
         </div>
     );
