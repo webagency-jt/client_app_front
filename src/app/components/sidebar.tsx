@@ -1,16 +1,16 @@
 // components/Sidebar.js
 import Image from "next/image"
 const Sidebar = () => {
-    const logo = require('../../../public/Logo.svg');
     return (
         <aside className="bg-white h-screen w-40 border-r-2 border-b-main-color">
             <div className="flex items-center justify-center p-[25px] border-b-2 border-b-main-color">
-                <Image src="Logo.svg" alt='logo' width="46" height="46"/>
+                <Image src="logo.svg" alt='logo' width="46" height="46"/>
             </div>
             <nav>
                 <ul className="space-y-2">
                     <li className="p-4">
                         <a href="/dashboard" className="flex items-center text-white hover:bg-blue-700 rounded">
+                            <Image src="logoDashboard.svg" alt='logo' width="30" height="30" className=""></Image>
                             <span className='text-black'>Dashboard</span>
                         </a>
                     </li>
