@@ -1,6 +1,6 @@
 const Header = () => {
     return (
-        <header className="bg-white p-8 border-b-2 border-test">
+        <header className="bg-white p-8 border-b-2 border-b-main-color">
             <div className="flex items-center">
                 <input
                     type="text"

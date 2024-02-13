@@ -13,7 +13,7 @@ export default function RootLayout({
       <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       <title>Web Agency</title>
     </head>
-      <body className='bg-[#F3F4F8]'>{children}</body>
+      <body className='bg-bg-main-color'>{children}</body>
     </html>
   );
 }
