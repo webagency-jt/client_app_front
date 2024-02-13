@@ -5,19 +5,18 @@
 import {StatusCodes} from "http-status-codes";
 
 export async function authenticate(user:IUser) {
-    try {
-        await signIn(user)
-    } catch (error) {
-        if (error) {
-            switch (error) {
+    const test = await signIn(user);
+    console.log(test)
+        if (test) {
+            switch (test) {
                 case StatusCodes.BAD_REQUEST:
                     return 'Invalid credentials.'
+                case StatusCodes.NOT_FOUND:
+                    return 'Invalid Credentials'
                 default:
                     return 'Something went wrong.'
             }
         }
-        throw error
-    }
 }
 
 export async function signIn(user: IUser) {
@@ -28,8 +27,7 @@ export async function signIn(user: IUser) {
         },
         body: JSON.stringify(user),
     });
-    console.log(res.json());
-    return res.json()
+    return res.status
 }
 
 export interface IUser {

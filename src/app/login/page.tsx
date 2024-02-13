@@ -41,8 +41,8 @@ function LoginForm() {
             email: email.toString(),
             password: password.toString()
         }
-        //await authenticate(user);
-        router.push('/dashboard')
+        await authenticate(user);
+        //router.push('/dashboard')
     };
 
     return (
