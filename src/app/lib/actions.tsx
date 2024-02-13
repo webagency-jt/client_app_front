@@ -5,16 +5,15 @@
 import {StatusCodes} from "http-status-codes";
 
 export async function authenticate(user:IUser) {
-    const test = await signIn(user);
-    console.log(test)
-        if (test) {
-            switch (test) {
+    const statusCode = await signIn(user);
+        if (statusCode) {
+            switch (statusCode) {
                 case StatusCodes.BAD_REQUEST:
                     return 'Invalid credentials.'
                 case StatusCodes.NOT_FOUND:
                     return 'Invalid Credentials'
-                default:
-                    return 'Something went wrong.'
+                case StatusCodes.OK:
+                    return 'Success'
             }
         }
 }
