@@ -31,9 +31,14 @@ function LoginForm() {
     const router = useRouter();
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [error, setError] = useState('');
+    const [email, setEmail] = useState('');
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
+    };
+
+    const toggleEmailEmpty = () => {
+        setEmail('');
     };
 
     async function handleSubmit(formData: FormData) {
@@ -72,18 +77,32 @@ function LoginForm() {
     return (
         <>
             <form className="mt-8 space-y-6" action={handleSubmit}>
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Enter Email"
-                    required
-                    className="appearance-none rounded-none relative block w-full px-4 py-2 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-blue-100 bg-opacity-50"
-                />
+                <div className="relative">
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter Email"
+
+                        value={email} // Définir la valeur de l'entrée sur la variable email
+                        onChange={(e) => setEmail(e.target.value)} // Mettre à jour la valeur de l'entrée lorsqu'elle change
+                        required
+                        className="appearance-none rounded-none relative block w-full px-4 py-2 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-blue-100 bg-opacity-50"
+                    />
+                    <button
+                        type="button"
+                        onClick={toggleEmailEmpty}
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                    >
+                        <Image src='crossed.svg' alt='crossed' width='19' height='16'></Image>
+                    </button>
+                </div>
                 <div className="relative">
                     <input
                         type={passwordVisible ? 'text' : 'password'}
                         name="password"
                         placeholder="Password"
+                        pattern=".{6,}" // Expression régulière pour vérifier que le mot de passe contient au moins 6 caractères
+                        title="Le mot de passe doit contenir au moins 6 caractères"
                         required
                         className="appearance-none rounded-none relative block w-full px-4 py-2 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-blue-100 bg-opacity-50"
                     />
