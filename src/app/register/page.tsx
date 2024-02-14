@@ -88,6 +88,8 @@ export default function RegisterPage() {
                                 type={passwordVisible ? 'text' : 'password'}
                                 name="password"
                                 placeholder="Password"
+                                pattern=".{6,}" // Expression régulière pour vérifier que le mot de passe contient au moins 6 caractères
+                                title="Le mot de passe doit contenir au moins 6 caractères"
                                 required
                                 className="appearance-none relative block w-full px-4 py-2 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-blue-100 bg-opacity-50 rounded"
                             />
@@ -108,6 +110,8 @@ export default function RegisterPage() {
                                 type={passwordConfirmVisible ? 'text' : 'password'}
                                 name="passwordConfirm"
                                 placeholder="PasswordConfirm"
+                                pattern=".{6,}" // Expression régulière pour vérifier que le mot de passe contient au moins 6 caractères
+                                title="Le mot de passe doit contenir au moins 6 caractères"
                                 required
                                 className="appearance-none relative block w-full px-4 py-2 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-blue-100 bg-opacity-50 rounded"
                             />
