@@ -1,20 +1,31 @@
 'use server'
 
-//import { signIn } from '@/auth'
-
 import {StatusCodes} from "http-status-codes";
+import { cookies } from 'next/headers'
+import {cookieUtils} from "@/app/lib/utils";
 
-export async function authenticate(user: IUser) {
+export async function authenticate(user: IUserAuth) {
     try {
         // Appel à la fonction signIn pour obtenir les données de la réponse
         const response = await signIn(user);
         // Vérification du contenu de la réponse
         if (response.statusCode === StatusCodes.OK ) {
+            const oneDay = 24 * 60 * 60 * 1000
+            cookies().set({
+                name: 'userId',
+                value: response.data,
+                httpOnly: true,
+                path: '/',
+            })
+
+
             return response;
         } else {
             switch (response.statusCode) {
                 case StatusCodes.NOT_FOUND:
                     return {statusCode : StatusCodes.NOT_FOUND , data:'Invalid credentials'};
+                default:
+                    return {statusCode : StatusCodes.NOT_FOUND , data:'Invalid credentials'}
             }
         }
     } catch (error) {
@@ -23,7 +34,32 @@ export async function authenticate(user: IUser) {
     }
 }
 
-export async function signIn(user: IUser) {
+export async function Setting() {
+    try {
+        // Appel à la fonction signIn pour obtenir les données de la réponse
+        const user = cookieUtils<IUser>('session')
+        const response = await getUserInformation();
+        // Vérification du contenu de la réponse
+        if (response.statusCode === StatusCodes.OK ) {
+            return response;
+        } else {
+            switch (response.statusCode) {
+                case StatusCodes.NOT_FOUND:
+                    return {statusCode : StatusCodes.NOT_FOUND , data:'Invalid userId'};
+                default:
+                    return {statusCode : StatusCodes.NOT_FOUND , data:'Invalid userId'}
+            }
+        }
+    } catch (error) {
+        console.log(error)
+        // Si une erreur est survenue lors de l'appel à getUserInformation, renvoyer un message d'erreur générique
+        return {statusCode : StatusCodes.NOT_FOUND , data: 'An error occurred'};
+    }
+}
+
+
+
+export async function signIn(user: IUserAuth) {
     const res = await fetch('http://localhost:3000/auth/login', {
         method: 'POST',
         headers: {
@@ -34,13 +70,25 @@ export async function signIn(user: IUser) {
     return { statusCode: res.status, data: await res.json() };
 }
 
-export interface IUser {
-    email: string,
-    password: string
+export async function getUserInformation() {
+
+    const res = await fetch('http://localhost:3000/users/informations/' + sessionStorage.getItem("UserId"), {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    return { statusCode: res.status, data: await res.json() };
 }
 
-export interface IUserRegister {
-    username:string,
+export interface IUser {
+    email: string,
+    token: string
+    username: string
+}
+
+export interface IUserAuth {
+    username?:string,
     email: string,
     password: string
 }

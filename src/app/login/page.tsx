@@ -1,7 +1,7 @@
 'use client'
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {authenticate, IUser} from '@/app/lib/actions';
+import {authenticate, IUserAuth} from '@/app/lib/actions';
 import {useFormStatus} from 'react-dom';
 import {useRouter} from "next/navigation";
 import Image from "next/image"
@@ -45,7 +45,7 @@ function LoginForm() {
         setError('');
         const email = formData.get('email') ?? ''
         const password = formData.get('password') ?? ''
-        const user: IUser = {
+        const user: IUserAuth = {
             email: email.toString(),
             password: password.toString()
         }
