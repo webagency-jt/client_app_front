@@ -40,7 +40,7 @@ export async function Setting() {
         const user = cookieUtils<IUser>('session')
         let response;
         if (user)
-            response = await getUserInformation(user.id);
+            response = await getUserInformation(user.id , user.token);
 
         if (response) {
             // Vérification du contenu de la réponse
@@ -73,12 +73,13 @@ export async function signIn(user: IUserAuth) {
     return {statusCode: res.status, data: await res.json()};
 }
 
-export async function getUserInformation(userId: string) {
+export async function getUserInformation(userId: string , token:string) {
 
     const res = await fetch('http://localhost:3000/users/informations/' + userId, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
         },
     });
     return {statusCode: res.status, data: await res.json()};
