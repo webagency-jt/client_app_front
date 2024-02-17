@@ -9,7 +9,7 @@ export default function Dashboard() {
 
     if (userRole === 'admin') {
         return <AdminDashboard/> // Component for admin users
-    } else if (userRole === 'utilisateur') {
+    } else if (userRole === 'user') {
         return <UserDashboard/> // Component for regular users
     }
 }
