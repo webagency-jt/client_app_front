@@ -90,6 +90,7 @@ export interface IUser {
     email: string,
     token: string
     username: string
+    role:string
 }
 
 export interface IUserAuth {
