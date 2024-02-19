@@ -3,6 +3,7 @@
 import {StatusCodes} from "http-status-codes";
 import {cookies} from 'next/headers'
 import {cookieUtils} from "@/app/lib/utils";
+import fetchUtils from "@/app/lib/fetchUtils";
 
 export async function authenticate(user: IUserAuth) {
     try {
@@ -63,27 +64,29 @@ export async function Setting() {
 
 
 export async function signIn(user: IUserAuth) {
-    const res = await fetch('http://localhost:3000/auth/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-    });
-    return {statusCode: res.status, data: await res.json()};
+    try {
+        const response = await fetchUtils.post('/auth/login', user);
+        const data = await response.json();
+        return { statusCode: response.status, data };
+    } catch (error) {
+        console.error('Error signing in:', error);
+        throw error;
+    }
 }
 
-export async function getUserInformation(userId: string , token:string) {
-
-    const res = await fetch('http://localhost:3000/users/informations/' + userId, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token,
-        },
-    });
-    return {statusCode: res.status, data: await res.json()};
+export async function getUserInformation(userId: string, token: string) {
+    try {
+        const response = await fetchUtils.get(`/users/informations/${userId}`, {
+            Authorization: `Bearer ${token}`,
+        });
+        const data = await response.json();
+        return { statusCode: response.status, data };
+    } catch (error) {
+        console.error('Error getting user information:', error);
+        throw error;
+    }
 }
+
 
 export interface IUser {
     id: string,
@@ -94,7 +97,7 @@ export interface IUser {
 }
 
 export interface IUserAuth {
-    username?: string,
-    email: string,
+    username: string,
+    email?: string,
     password: string
 }

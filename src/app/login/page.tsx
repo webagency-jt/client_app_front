@@ -31,22 +31,22 @@ function LoginForm() {
     const router = useRouter();
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [error, setError] = useState('');
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     };
 
-    const toggleEmailEmpty = () => {
-        setEmail('');
+    const toggleUsernameEmpty = () => {
+        setUsername('');
     };
 
     async function handleSubmit(formData: FormData) {
         setError('');
-        const email = formData.get('email') ?? ''
+        const username = formData.get('username') ?? ''
         const password = formData.get('password') ?? ''
         const user: IUserAuth = {
-            email: email.toString(),
+            username: username.toString(),
             password: password.toString()
         }
         const response = await authenticate(user);
@@ -79,18 +79,18 @@ function LoginForm() {
             <form className="mt-8 space-y-6" action={handleSubmit}>
                 <div className="relative">
                     <input
-                        type="email"
-                        name="email"
-                        placeholder="Enter Email"
+                        type="username"
+                        name="username"
+                        placeholder="Enter username"
 
-                        value={email} // Définir la valeur de l'entrée sur la variable email
-                        onChange={(e) => setEmail(e.target.value)} // Mettre à jour la valeur de l'entrée lorsqu'elle change
+                        value={username} // Définir la valeur de l'entrée sur la variable username
+                        onChange={(e) => setUsername(e.target.value)} // Mettre à jour la valeur de l'entrée lorsqu'elle change
                         required
                         className="appearance-none relative block w-full px-4 py-2 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm bg-blue-100 bg-opacity-50 rounded"
                     />
                     <button
                         type="button"
-                        onClick={toggleEmailEmpty}
+                        onClick={toggleUsernameEmpty}
                         className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                     >
                         <Image src='crossed.svg' alt='crossed' width='19' height='16'></Image>
