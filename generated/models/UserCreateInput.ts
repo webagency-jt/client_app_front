@@ -2,16 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type User = {
-    id: string;
+export type UserCreateInput = {
     username: string;
     password: string;
-    role: User.role;
 };
-export namespace User {
-    export enum role {
-        USER = 'user',
-        ADMIN = 'admin',
-    }
-}
 

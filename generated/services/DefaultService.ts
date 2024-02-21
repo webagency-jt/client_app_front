@@ -3,8 +3,14 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { User } from '../models/User';
+import type { UserCreateInput } from '../models/UserCreateInput';
 import type { UserInformations } from '../models/UserInformations';
+import type { UserInformationsCreateInput } from '../models/UserInformationsCreateInput';
+import type { UserInformationsUpdateInput } from '../models/UserInformationsUpdateInput';
+import type { UserLoginInput } from '../models/UserLoginInput';
 import type { UserSettings } from '../models/UserSettings';
+import type { UserSettingsInput } from '../models/UserSettingsInput';
+import type { UserUsername } from '../models/UserUsername';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -25,14 +31,11 @@ export class DefaultService {
      * @throws ApiError
      */
     public static postAuthLogin(
-        requestBody?: {
-            email: string;
-            password: string;
-        },
+        requestBody?: UserLoginInput,
     ): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/auth/login',
+            url: 'http://localhost:3000/auth/login',
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -43,11 +46,7 @@ export class DefaultService {
      * @throws ApiError
      */
     public static postAuthRegister(
-        requestBody?: {
-            username: string;
-            password: string;
-            email: string;
-        },
+        requestBody?: UserCreateInput,
     ): CancelablePromise<User> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -74,10 +73,7 @@ export class DefaultService {
      * @throws ApiError
      */
     public static patchUsersSettings(
-        requestBody?: {
-            userId: string;
-            lang: string;
-        },
+        requestBody?: UserSettingsInput,
     ): CancelablePromise<UserSettings> {
         return __request(OpenAPI, {
             method: 'PATCH',
@@ -92,9 +88,7 @@ export class DefaultService {
      * @throws ApiError
      */
     public static postUsersExist(
-        requestBody?: {
-            email: string;
-        },
+        requestBody?: UserUsername,
     ): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -109,18 +103,7 @@ export class DefaultService {
      * @throws ApiError
      */
     public static putUsersInformations(
-        requestBody?: {
-            userId: string;
-            address?: string;
-            city?: string;
-            firstname?: string;
-            lastname?: string;
-            phoneNumber?: string;
-            siret?: string;
-            state?: string;
-            tva?: string;
-            zip?: string;
-        },
+        requestBody?: UserInformationsUpdateInput,
     ): CancelablePromise<UserInformations> {
         return __request(OpenAPI, {
             method: 'PUT',
@@ -135,18 +118,7 @@ export class DefaultService {
      * @throws ApiError
      */
     public static postUsersInformations(
-        requestBody?: {
-            userId: string;
-            address: string;
-            city: string;
-            firstname: string;
-            lastname: string;
-            phoneNumber: string;
-            siret: string;
-            state: string;
-            tva: number;
-            zip: string;
-        },
+        requestBody?: UserInformationsCreateInput,
     ): CancelablePromise<UserInformations> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -157,18 +129,21 @@ export class DefaultService {
     }
     /**
      * @param userId
+     * @param headers
      * @returns UserInformations
      * @throws ApiError
      */
     public static getUsersInformations(
         userId: string,
+        headers?: Record<string, string>
     ): CancelablePromise<UserInformations> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/users/informations/{userId}',
+            url: 'http://localhost:3000/users/informations/{userId}',
             path: {
                 'userId': userId,
             },
+            headers: headers,
         });
     }
 }

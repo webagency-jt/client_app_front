@@ -1,12 +1,13 @@
 'use client'
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {authenticate, IUserAuth} from '@/app/lib/actions';
+import {authenticate} from '@/app/lib/actions';
 import {useFormStatus} from 'react-dom';
 import {useRouter} from "next/navigation";
 import Image from "next/image"
 import {useState} from "react";
 import {StatusCodes} from "http-status-codes";
+import {UserLoginInput} from "../../../generated";
 
 export default function Page() {
     return (
@@ -45,7 +46,7 @@ function LoginForm() {
         setError('');
         const username = formData.get('username') ?? ''
         const password = formData.get('password') ?? ''
-        const user: IUserAuth = {
+        const user: UserLoginInput = {
             username: username.toString(),
             password: password.toString()
         }

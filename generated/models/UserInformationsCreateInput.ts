@@ -2,8 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UserInformations = {
-    id: string;
+export type UserInformationsCreateInput = {
     userId: string;
     address: string;
     city: string;

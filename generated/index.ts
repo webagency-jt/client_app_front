@@ -7,8 +7,14 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
-export type { User } from './models/User';
+export { User } from './models/User';
+export type { UserCreateInput } from './models/UserCreateInput';
 export type { UserInformations } from './models/UserInformations';
-export type { UserSettings } from './models/UserSettings';
+export type { UserInformationsCreateInput } from './models/UserInformationsCreateInput';
+export type { UserInformationsUpdateInput } from './models/UserInformationsUpdateInput';
+export type { UserLoginInput } from './models/UserLoginInput';
+export { UserSettings } from './models/UserSettings';
+export { UserSettingsInput } from './models/UserSettingsInput';
+export type { UserUsername } from './models/UserUsername';
 
 export { DefaultService } from './services/DefaultService';

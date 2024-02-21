@@ -4,8 +4,9 @@ import {StatusCodes} from "http-status-codes";
 import {cookies} from 'next/headers'
 import {cookieUtils} from "@/app/lib/utils";
 import fetchUtils from "@/app/lib/fetchUtils";
+import {ApiError, DefaultService, UserLoginInput} from "../../../generated";
 
-export async function authenticate(user: IUserAuth) {
+export async function authenticate(user: UserLoginInput) {
     try {
         // Appel à la fonction signIn pour obtenir les données de la réponse
         const response = await signIn(user);
@@ -20,7 +21,7 @@ export async function authenticate(user: IUserAuth) {
             })
 
 
-            return response;
+            return {statusCode: StatusCodes.OK,data: 'Success'};
         } else {
             switch (response.statusCode) {
                 case StatusCodes.NOT_FOUND:
@@ -63,14 +64,19 @@ export async function Setting() {
 }
 
 
-export async function signIn(user: IUserAuth) {
+export async function signIn(user: UserLoginInput) {
     try {
-        const response = await fetchUtils.post('/auth/login', user);
-        const data = await response.json();
-        return { statusCode: response.status, data };
+        const response = await DefaultService.postAuthLogin(user);
+        return { statusCode: 200, data : response};
     } catch (error) {
+        let statusCode: number = 500;
+        let statusText: string = "";
+        if (error instanceof ApiError) {
+            statusCode = error.status;
+            statusText = error.statusText;
+        }
         console.error('Error signing in:', error);
-        throw error;
+        return { statusCode, data : statusText};
     }
 }
 
@@ -94,10 +100,4 @@ export interface IUser {
     token: string
     username: string
     role:string
-}
-
-export interface IUserAuth {
-    username: string,
-    email?: string,
-    password: string
 }
