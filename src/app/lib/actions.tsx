@@ -4,7 +4,7 @@ import {StatusCodes} from "http-status-codes";
 import {cookies} from 'next/headers'
 import {cookieUtils} from "@/app/lib/utils";
 import fetchUtils from "@/app/lib/fetchUtils";
-import {ApiError, DefaultService, UserLoginInput} from "../../../generated";
+import {ApiError, DefaultService, UserInformations, UserLoginInput} from "../../../generated";
 
 export async function authenticate(user: UserLoginInput) {
     try {
@@ -49,8 +49,8 @@ export async function Setting() {
             if (response.statusCode === StatusCodes.OK) {
                 return response;
             } else {
-                switch (response.statusCode) {
-                    case StatusCodes.NOT_FOUND:
+                 switch (response.statusCode) {
+                   case StatusCodes.NOT_FOUND:
                         return {statusCode: StatusCodes.NOT_FOUND, data: 'Invalid userId'};
                     default:
                         return {statusCode: StatusCodes.NOT_FOUND, data: 'Invalid userId'}
@@ -81,19 +81,29 @@ export async function signIn(user: UserLoginInput) {
 }
 
 export async function getUserInformation(userId: string, token: string) {
+
     try {
-        const response = await fetchUtils.get(`/users/informations/${userId}`, {
-            Authorization: `Bearer ${token}`,
-        });
-        const data = await response.json();
-        return { statusCode: response.status, data };
+        const response = await DefaultService.getUsersInformations(userId,
+            token);
+        const responseData:IResponseData = { statusCode: 200, data : response}
+        return responseData;
     } catch (error) {
-        console.error('Error getting user information:', error);
-        throw error;
+        let statusCode: number = 500;
+        let statusText: string = "";
+        if (error instanceof ApiError) {
+            statusCode = error.status;
+            statusText = error.statusText;
+        }
+        const responseData:IResponseData = { statusCode, data : statusText};
+        console.error('Error signing in:', error);
+        return responseData;
     }
 }
 
-
+export interface IResponseData{
+   statusCode: number,
+   data:UserInformations | string
+}
 export interface IUser {
     id: string,
     email: string,

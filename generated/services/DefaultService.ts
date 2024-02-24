@@ -35,7 +35,7 @@ export class DefaultService {
     ): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: 'http://localhost:3000/auth/login',
+            url: '/auth/login',
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -98,52 +98,64 @@ export class DefaultService {
         });
     }
     /**
+     * @param authorization
      * @param requestBody
      * @returns UserInformations
      * @throws ApiError
      */
     public static putUsersInformations(
+        authorization: string,
         requestBody?: UserInformationsUpdateInput,
     ): CancelablePromise<UserInformations> {
         return __request(OpenAPI, {
             method: 'PUT',
             url: '/users/informations',
+            headers: {
+                'Authorization': authorization,
+            },
             body: requestBody,
             mediaType: 'application/json',
         });
     }
     /**
+     * @param authorization
      * @param requestBody
      * @returns UserInformations
      * @throws ApiError
      */
     public static postUsersInformations(
+        authorization: string,
         requestBody?: UserInformationsCreateInput,
     ): CancelablePromise<UserInformations> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/users/informations',
+            headers: {
+                'Authorization': authorization,
+            },
             body: requestBody,
             mediaType: 'application/json',
         });
     }
     /**
      * @param userId
-     * @param headers
+     * @param authorization
      * @returns UserInformations
      * @throws ApiError
      */
     public static getUsersInformations(
         userId: string,
-        headers?: Record<string, string>
+        authorization: string,
     ): CancelablePromise<UserInformations> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: 'http://localhost:3000/users/informations/{userId}',
+            url: '/users/informations/{userId}',
             path: {
                 'userId': userId,
             },
-            headers: headers,
+            headers: {
+                'Authorization': authorization,
+            },
         });
     }
 }

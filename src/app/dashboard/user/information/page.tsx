@@ -2,31 +2,33 @@
 import Image from "next/image"
 import {Setting} from "@/app/lib/actions";
 import {useEffect, useState} from "react";
+import {UserInformations} from "../../../../../generated";
 export default function Page() {
 
-    type UserData = {
-        firstname: string,
-        lastname: string,
-        //email: string,
-        phoneNumber: string,
-        tva: string,
-        siret: string,
-        address: string,
-        city: string,
-        state: string,
-        zip: string
-    }
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
-    const [tva, setTva] = useState('');
+    const [tva, setTva] = useState(0);
     const [siret, setSiret] = useState('');
     const [streetAddress, setStreetAddress] = useState('');
     const [city, setCity] = useState('');
     const [province, setProvince] = useState('');
     const [zipcode, setZipCode] = useState('');
-    const [userInformation, setUserInformation] = useState<UserData>({city: "", firstname: "", lastname: "", phoneNumber: "", state: "", siret: "", address: "", tva: "", zip: ""});
+    const [userInformation, setUserInformation] = useState<UserInformations>({
+        address: "",
+        city: "",
+        email: "",
+        firstname: "",
+        id: "",
+        lastname: "",
+        phoneNumber: "",
+        siret: "",
+        state: "",
+        tva: 0,
+        userId: "",
+        zip: ""
+    });
    useEffect( () => {
        const userInformation = async()=> {
            const data = await Setting();
