@@ -32,7 +32,7 @@ const Header = () => {
             </div>
             <div className="relative ml-8 mr-2">
                 <Image
-                    src="/avatartest.svg"
+                    src="/avatarTest.svg"
                     priority={true}
                     alt="avatar"
                     width={564}
@@ -42,7 +42,7 @@ const Header = () => {
             </div>
             <div className="relative">
                 <Image
-                    src="/downarrow.svg"
+                    src="/downArrow.svg"
                     priority={true}
                     alt="avatar"
                     width={18}

@@ -133,7 +133,7 @@ export default function Page() {
                     <Image src="/setting.svg" alt="setting" width='1000' height='200' className='rounded'/>
                     {/* Image en rond en bas à gauche */}
                     <div className="absolute bottom-8 left-4">
-                        <Image src="/avatartest.svg" alt="circle" className="rounded-full" width='107' height='100'/>
+                        <Image src="/avatarTest.svg" alt="circle" className="rounded-full" width='107' height='100'/>
                     </div>
                 </div>
                 <div className="w-full max-w-[62.5rem]">
