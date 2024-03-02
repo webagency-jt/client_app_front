@@ -7,7 +7,8 @@ import {useRouter} from "next/navigation";
 import Image from "next/image"
 import {useState} from "react";
 import {StatusCodes} from "http-status-codes";
-import {UserLoginInput} from "../../../generated";
+import {UserLoginInput} from "@generated/models/UserLoginInput";
+
 
 export default function Page() {
     return (

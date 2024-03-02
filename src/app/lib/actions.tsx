@@ -3,19 +3,18 @@
 import {StatusCodes} from "http-status-codes";
 import {cookies} from 'next/headers'
 import {cookieUtils} from "@/app/lib/utils";
-import fetchUtils from "@/app/lib/fetchUtils";
-import {
-    ApiError,
-    AuthService,
-    UserInformationsUpdateInput,
-    UserLoginInput,
-    UsersInformationsService
-} from "../../../generated";
+import {UserLoginInput} from "@generated/models/UserLoginInput";
+import {AuthService} from "@generated/services/AuthService";
+import {ApiError} from "@generated/core/ApiError";
+import {UserInformationsUpdateInput} from "@generated/models/UserInformationsUpdateInput";
+import {UsersInformationsService} from "@generated/services/UsersInformationsService";
+
 
 export async function authenticate(user: UserLoginInput) {
     try {
         // Appel à la fonction signIn pour obtenir les données de la réponse
         const response = await signIn(user);
+
         // Vérification du contenu de la réponse
         if (response.statusCode === StatusCodes.OK) {
             const oneDay = 24 * 60 * 60 * 1000
@@ -47,8 +46,10 @@ export async function Setting() {
         // Appel à la fonction signIn pour obtenir les données de la réponse
         const user = cookieUtils<IUser>('session')
         let response;
-        if (user)
-            response = await getUserInformation(user.id , user.token);
+
+        if (user) {
+            response = await getUserInformation(user.id, user.token);
+        }
 
         if (response) {
             // Vérification du contenu de la réponse
@@ -89,8 +90,7 @@ export async function signIn(user: UserLoginInput) {
 export async function UpdateUserInformation(userInformation: UserInformationsUpdateInput) {
     try {
         // Appel à la fonction signIn pour obtenir les données de la réponse
-        const user = cookieUtils<IUser>('session')
-
+        const user = cookieUtils<IUser>('session');
         let response;
 
         if (user) {
@@ -128,10 +128,12 @@ export async function putUserInformation(token: string , userInformation: UserIn
     } catch (error) {
         let statusCode: number = 500;
         let statusText: string = "";
+
         if (error instanceof ApiError) {
             statusCode = error.status;
             statusText = error.statusText;
         }
+
         const responseData:IResponseData = { statusCode, data : statusText};
         console.error('Error signing in:', error);
         return responseData;
@@ -150,10 +152,12 @@ export async function getUserInformation(userId: string, token: string) {
     } catch (error) {
         let statusCode: number = 500;
         let statusText: string = "";
+
         if (error instanceof ApiError) {
             statusCode = error.status;
             statusText = error.statusText;
         }
+
         const responseData:IResponseData = { statusCode, data : statusText};
         console.error('Error signing in:', error);
         return responseData;

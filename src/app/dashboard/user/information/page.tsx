@@ -2,10 +2,11 @@
 import Image from "next/image"
 import {Setting, UpdateUserInformation} from "@/app/lib/actions";
 import {useEffect, useState} from "react";
-import {UserInformations, UserInformationsUpdateInput} from "../../../../../generated";
 import {StatusCodes} from "http-status-codes";
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {UserInformations} from "@generated/models/UserInformations";
+import {UserInformationsUpdateInput} from "@generated/models/UserInformationsUpdateInput";
 export default function Page() {
 
     const [firstname, setFirstname] = useState('');
