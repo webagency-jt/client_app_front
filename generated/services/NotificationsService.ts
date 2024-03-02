@@ -5,15 +5,17 @@
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class DefaultService {
+export class NotificationsService {
     /**
-     * @returns void
+     * @returns any Respond a message
      * @throws ApiError
      */
-    public static get(): CancelablePromise<void> {
+    public static getNotifications(): CancelablePromise<{
+        message: string;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/',
+            url: '/notifications',
         });
     }
 }

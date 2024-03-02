@@ -2,12 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UserSettings = {
-    id: string;
+export type UserSettingsInput = {
     userId: string;
-    lang: UserSettings.lang;
+    lang: UserSettingsInput.lang;
 };
-export namespace UserSettings {
+export namespace UserSettingsInput {
     export enum lang {
         FR = 'fr',
         EN = 'en',
