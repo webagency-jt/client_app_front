@@ -28,11 +28,15 @@ export class SitesService {
         });
     }
     /**
+     * @param skip
+     * @param take
      * @param authorization
      * @returns void
      * @throws ApiError
      */
     public static getSites(
+        skip?: any,
+        take?: any,
         authorization?: any,
     ): CancelablePromise<void> {
         return __request(OpenAPI, {
@@ -40,6 +44,10 @@ export class SitesService {
             url: '/sites',
             headers: {
                 'Authorization': authorization,
+            },
+            query: {
+                'skip': skip,
+                'take': take,
             },
         });
     }
