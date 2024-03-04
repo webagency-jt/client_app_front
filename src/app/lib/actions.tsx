@@ -8,6 +8,7 @@ import {AuthService} from "@generated/services/AuthService";
 import {ApiError} from "@generated/core/ApiError";
 import {UserInformationsUpdateInput} from "@generated/models/UserInformationsUpdateInput";
 import {UsersInformationsService} from "@generated/services/UsersInformationsService";
+import {SitesService} from "@generated/services/SitesService";
 
 
 export async function authenticate(user: UserLoginInput) {
@@ -123,6 +124,32 @@ export async function putUserInformation(token: string , userInformation: UserIn
         const tokenBearer = 'Bearer ' + token;
         const response = await UsersInformationsService.putUsersInformations(
             tokenBearer , userInformation);
+        const responseData:IResponseData = { statusCode: 200, data : response}
+        return responseData;
+    } catch (error) {
+        let statusCode: number = 500;
+        let statusText: string = "";
+
+        if (error instanceof ApiError) {
+            statusCode = error.status;
+            statusText = error.statusText;
+        }
+
+        const responseData:IResponseData = { statusCode, data : statusText};
+        console.error('Error signing in:', error);
+        return responseData;
+    }
+}
+
+export async function getAllSites() {
+    const userSession = cookieUtils<IUser>('session');
+    const userId = userSession.id;
+    const token = userSession.token;
+
+    try {
+        const tokenBearer = 'Bearer ' + token;
+        const response = await SitesService.getSites('0','10',tokenBearer);
+        console.log(response)
         const responseData:IResponseData = { statusCode: 200, data : response}
         return responseData;
     } catch (error) {

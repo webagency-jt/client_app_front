@@ -101,7 +101,7 @@ export default function RegisterPage() {
                                 {passwordVisible ? (
                                     <Image src='/eye.svg' alt='passwordNoVisible' width='19' height='16'></Image>
                                 ) : (
-                                    <Image src='/eyecrossed.svg' alt='passwordVisible' width='19' height='16'></Image>
+                                    <Image src='/eyeCrossed.svg' alt='passwordVisible' width='19' height='16'></Image>
                                 )}
                             </button>
                         </div>
@@ -123,7 +123,7 @@ export default function RegisterPage() {
                                 {passwordConfirmVisible ? (
                                     <Image src='/eye.svg' alt='passwordNoVisible' width='19' height='16'></Image>
                                 ) : (
-                                    <Image src='/eyecrossed.svg' alt='passwordVisible' width='19' height='16'></Image>
+                                    <Image src='/eyeCrossed.svg' alt='passwordVisible' width='19' height='16'></Image>
                                 )}
                             </button>
                         </div>

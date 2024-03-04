@@ -6,10 +6,11 @@ import {IUser} from "@/app/lib/actions";
 export default function Dashboard() {
     const userSession = cookieUtils<IUser>('session')
     const userRole = userSession?.role // Assuming 'role' is part of the session object
+    const username = userSession?.username;
 
     if (userRole === 'admin') {
-        return <AdminDashboard/> // Component for admin users
+        return <AdminDashboard username={username}/>
     } else if (userRole === 'user') {
-        return <UserDashboard/> // Component for regular users
+        return <UserDashboard username={username}/>
     }
 }
