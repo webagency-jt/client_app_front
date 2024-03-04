@@ -1,4 +1,4 @@
-const AdminDashboard = () => {
+const AdminDashboard = (props: any) => {
     return (
         <h1>Hello, Dashboard Page Admin!</h1>
     );

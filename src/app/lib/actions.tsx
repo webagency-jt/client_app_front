@@ -141,7 +141,10 @@ export async function putUserInformation(token: string , userInformation: UserIn
     }
 }
 
-export async function getAllSites(userId: string, token: string) {
+export async function getAllSites() {
+    const userSession = cookieUtils<IUser>('session');
+    const userId = userSession.id;
+    const token = userSession.token;
 
     try {
         const tokenBearer = 'Bearer ' + token;

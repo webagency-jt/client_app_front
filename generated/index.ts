@@ -7,6 +7,7 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
+export type { Sites } from './models/Sites';
 export type { SitesInput } from './models/SitesInput';
 export { User } from './models/User';
 export type { UserCreateInput } from './models/UserCreateInput';

@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Sites } from '../models/Sites';
 import type { SitesInput } from '../models/SitesInput';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -31,14 +32,14 @@ export class SitesService {
      * @param skip
      * @param take
      * @param authorization
-     * @returns void
+     * @returns Sites SitesSchema
      * @throws ApiError
      */
     public static getSites(
         skip?: any,
         take?: any,
         authorization?: any,
-    ): CancelablePromise<void> {
+    ): CancelablePromise<Sites> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/sites',
