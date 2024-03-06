@@ -1,9 +1,7 @@
 "use client"
-import {cookieUtils} from "@/app/lib/utils";
 import {getAllSites, IUser, Setting} from "@/app/lib/actions";
 import Image from "next/image";
 import {useEffect, useState} from "react";
-import {SitesInput} from "@generated/models/SitesInput";
 import {Sites} from "@generated/models/Sites";
 
 const UserDashboard= (props: any) => {
@@ -17,13 +15,7 @@ const UserDashboard= (props: any) => {
         allSites().then(sites =>{
             setSites(sites.data);
         })
-
-
     }, []);
-
-    console.log(sites)
-
-
 
     return (
         <div className="max-w-screen-xl mx-auto">

@@ -14,10 +14,12 @@ test('Test de la page de connexion', async ({ page }) => {
 
   // Soumettre le formulaire
   await Promise.all([
-    page.waitForNavigation(),
-    page.click('button[type="submit"]')
+    page.click('button[type="submit"]'),
+    // Attendre la redirection vers le tableau de bord après une connexion réussie
+    page.waitForURL('/dashboard')
   ]);
 
-  // Vérification de la redirection vers le tableau de bord après une connexion réussie
+  // Vérification de la redirection vers le tableau de bord
   expect(page.url()).toContain('/dashboard');
 });
+
